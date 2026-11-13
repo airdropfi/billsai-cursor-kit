@@ -2,10 +2,7 @@
   "mcpServers": {
     "billsai": {
       "type": "http",
-      "url": "https://billsai.cc/api/mcp",
-      "headers": {
-        "Authorization": "Bearer ${BILLSAI_API_KEY}"
-      }
+      "url": "https://billsai.cc/api/mcp"
     }
   }
 }

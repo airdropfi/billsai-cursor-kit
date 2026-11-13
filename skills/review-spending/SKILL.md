@@ -7,7 +7,7 @@ compatibility: Needs the Bills AI MCP server connected and signed in. Read-only;
 
 # Review spending from saved Bills AI data
 
-All tools used here are read-only. Nothing can be changed or deleted through MCP.
+All tools used here are read-only. Nothing can be added, changed or deleted through the server.
 
 ## Tools
 

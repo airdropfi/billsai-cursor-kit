@@ -1,10 +1,7 @@
 {
   "mcpServers": {
     "billsai": {
-      "url": "https://billsai.cc/api/mcp",
-      "headers": {
-        "Authorization": "Bearer ${env:BILLSAI_API_KEY}"
-      }
+      "url": "https://billsai.cc/api/mcp"
     }
   }
 }

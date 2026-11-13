@@ -11,10 +11,10 @@ This skill changes nothing in the user's Bills AI account. The conversion reads 
 
 ## Choose the path
 
-1. **Small file, no shell:** read the PDF, base64-encode it and call `convert_statement_pdf`. It returns CSV text, a table preview and warnings.
+1. **Small file, no shell:** read the PDF, base64-encode it and call `convert_statement_pdf`. Use `pdf_base64` (base64 of the PDF, up to 2 MB decoded); ChatGPT can pass a `file` attachment instead. Optional `delimiter` (`,` `;` tab or `|`) and `include_headers`. The result has `csv`, `headers`, `row_count`, `column_count`, `extraction_method`, `warnings`, `truncated`, `returned_rows` and `note`. A tool result holds at most about 100,000 characters of CSV; if `truncated` is true, use the upload URL, which returns every row.
 2. **Larger file, or an agent that can run shell commands:** call `create_statement_upload_url`. It returns a one-time URL valid for 10 minutes. Send the PDF to it with `curl` as an HTTP PUT (for example `curl -X PUT --data-binary @statement.pdf "<url>"`). The response of the PUT is the CSV. PDFs up to 10 MB are accepted; the upload is not stored.
 
-If the file is too large to pass as base64, use the upload URL path. If the URL expires, request a new one.
+If the file is over 2 MB or the CSV was truncated, use the upload URL path. If the URL expires, request a new one.
 
 ## Limits and honesty
 
@@ -27,6 +27,6 @@ If the file is too large to pass as base64, use the upload URL path. If the URL 
 
 1. Confirm which PDF the user means and whether it is a text PDF.
 2. Pick the path above and call the tool.
-3. Show the table preview and any warnings. Offer the CSV text or save it to a file the user names.
+3. Show the headers, row count and any warnings, and say if `truncated` is true. Offer the CSV text or save it to a file the user names.
 4. Remind the user to compare totals and a few rows with the original statement.
 5. If the tools say sign-in is required, tell the user to authenticate the `billsai` server in their client.
