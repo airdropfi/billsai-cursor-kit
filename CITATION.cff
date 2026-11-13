@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you refer to this software, please cite it as below."
+type: software
+title: "Bills AI kit for Cursor"
+abstract: "Bills AI turns bank statement PDFs into CSV and analyzes spending without bank linking: an assistant can convert a statement PDF, list saved statements and transactions, summarize spending and export CSV through a hosted, read-only MCP server."
+authors:
+  - name: "Bills AI"
+    website: "https://billsai.cc"
+repository-code: "https://github.com/airdropfi/billsai-cursor-kit"
+url: "https://billsai.cc/mcp"
+license: MIT
+version: 1.0.0
+keywords:
+  - mcp
+  - model-context-protocol
+  - bank-statement
+  - pdf-to-csv
+  - personal-finance
+  - cursor

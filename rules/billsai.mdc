@@ -1,0 +1,23 @@
+---
+description: How to use the Bills AI MCP tools: convert text-layer statement PDFs to CSV, read saved transactions and summaries, verify against the original
+alwaysApply: false
+---
+
+# Bills AI (bank statement PDF to CSV, spending review)
+
+Bills AI (https://billsai.cc) reads bank statements into CSV and shows spending without bank linking. These rules apply whenever you use the `billsai` MCP server. Its tools are `convert_statement_pdf`, `create_statement_upload_url`, `list_statements`, `list_transactions`, `get_spending_summary` and `export_transactions_csv`. All are read-only; nothing can be changed or deleted through MCP.
+
+If the Bills AI tools are missing or answer 401 or "unauthorized", tell the user to check that the `BILLSAI_API_KEY` environment variable is set to a `bai_sk_...` key (paid plans) and to restart Cursor, or to remove the `headers` block from their MCP config to sign in with OAuth. You cannot fix this for them.
+
+## Rules that always apply
+
+1. **Text PDFs only.** The converter has no OCR. Scanned or photographed PDFs are not supported; say so.
+2. **Pick the path by size.** `convert_statement_pdf` takes the PDF as base64 and suits small files. For larger files (up to 10 MB) or when you can run shell commands, call `create_statement_upload_url` and PUT the PDF to the returned one-time URL (valid 10 minutes) with curl; the response of the PUT is the CSV.
+3. **Verify against the original.** Values are copied as printed, layouts vary and extraction can be wrong. Show warnings from the tool and tell the user to check against the original statement.
+4. **Report as returned.** Never invent rows, totals or months the tools did not return. Saved-data tools cover only what the user saved in Bills AI.
+5. **Not advice.** Bills AI is not a bank, adviser or accountant. Do not present summaries as financial, tax or accounting advice.
+6. **Privacy.** Convert and upload tools do not store the PDF. Whatever a tool returns is visible to you and to the user's AI provider; do not forward it anywhere else without being asked.
+
+## Workflow
+
+Convert: the `convert-a-statement` skill. Spending questions: the `review-spending` skill. Follow them when installed.
